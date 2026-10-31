@@ -38,5 +38,21 @@ class MacroableTest extends TestCase
         $mc::macro('lowercase', fn($v) => strtolower($v));
         
         $this->assertSame(['ucwords', 'lowercase'], $mc::getMacroNames());
-    }    
+    }
+
+    public function testCallingUndefinedMacroThrowsException()
+    {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage('Method "foo" does not exist');
+
+        new MacroableClass()->foo();
+    }
+
+    public function testCallingUndefinedStaticMacroThrowsException()
+    {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage('Method "foo" does not exist');
+
+        MacroableClass::foo();
+    }
 }
