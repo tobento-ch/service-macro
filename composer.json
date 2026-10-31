@@ -1,6 +1,6 @@
 {
     "name": "tobento/service-macro",
-    "version": "2.0",
+    "version": "2.0.1",
     "type": "library",
     "description": "Dynamically add methods to a class.",
     "keywords": [
