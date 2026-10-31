@@ -73,15 +73,15 @@ trait Macroable
     public function __call(string $methodName, array $parameters): mixed
     {
         // check if macro exists.
-        if (! static::hasMacro($methodName))
-        {
-             throw new BadMethodCallException('Method "'.$methodName.'" does not exist on "'.static::class.'".');
+        if (! static::hasMacro($methodName)) {
+            throw new BadMethodCallException(
+                sprintf('Method "%s" does not exist on "%s".', $methodName, static::class)
+            );
         }
         
         $macro = static::$macros[$methodName];
         
-        if ($macro instanceof Closure)
-        {
+        if ($macro instanceof Closure) {
             $macro = $macro->bindTo($this, static::class);
         }
         
@@ -100,15 +100,15 @@ trait Macroable
      */
     public static function __callStatic(string $method, array $parameters): mixed
     {
-        if (! static::hasMacro($method))
-        {
-             throw new BadMethodCallException('Method "'.$methodName.'" does not exist on "'.static::class.'".');
+        if (! static::hasMacro($method)) {
+            throw new BadMethodCallException(
+                sprintf('Method "%s" does not exist on "%s".', $method, static::class)
+            );
         }
         
         $macro = static::$macros[$method];
 
-        if ($macro instanceof Closure)
-        {
+        if ($macro instanceof Closure) {
             $macro = $macro->bindTo(null, static::class);
         }
 
